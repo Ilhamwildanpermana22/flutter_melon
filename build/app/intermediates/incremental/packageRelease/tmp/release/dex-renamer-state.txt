@@ -1,0 +1,4 @@
+#Thu Jul 04 17:34:53 ICT 2024
+base.0=D\:\\tugas akhir 2 apk\\aplikasi melon fiks\\flutter_melon\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
