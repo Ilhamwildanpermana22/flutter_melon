@@ -10,7 +10,6 @@ class Monitoring extends StatefulWidget {
 }
 
 class _MonitoringState extends State<Monitoring> {
-  String temperatur = '0';
   String tds = '0';
   String mos = '0';
 
@@ -27,7 +26,6 @@ class _MonitoringState extends State<Monitoring> {
         setState(() {
           tds = child['tds'].toString();
           mos = child['mos'].toString();
-          temperatur = child['temperatur'].toString();
         });
       }
     });
@@ -41,19 +39,15 @@ class _MonitoringState extends State<Monitoring> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sensor Data'),
-      ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _buildCircularIndicator('tds', tds, 14.0),
+              _buildCircularIndicator('Tds', tds, 14.0),
               SizedBox(height: 20),
               _buildCircularIndicator('Kelembapan', mos, 100.0),
               SizedBox(height: 20),
-              _buildCircularIndicator('Suhu', temperatur, 50.0),
             ],
           ),
         ),

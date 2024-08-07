@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_melon/kontrol/kontrol.dart';
@@ -15,6 +14,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   RxBool isLoading = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    Monitoring(),
+    Kontrol(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,69 +55,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(227, 3, 135, 31),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage("assets/melon.png")
-                      // Ganti dengan URL foto profil Anda
-                      ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Buah Melon",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 122, 235, 107),
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "IoT",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 90, 238, 132),
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.monitor),
-              title: Text('Monitoring'),
-              onTap: () {
-                Get.to(Monitoring());
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.control_point),
-              title: Text('Kontrol'),
-              onTap: () {
-                Get.to(Kontrol());
-              },
-            ),
-          ],
-        ),
-      ),
-      body: const Center(
-        child: Text(
-          'Smart Greenhouse!',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.green,
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.monitor),
+            label: 'Monitoring',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.control_point),
+            label: 'Kontrol',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

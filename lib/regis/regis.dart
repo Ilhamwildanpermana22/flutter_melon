@@ -86,7 +86,8 @@ class _regis_screenState extends State<regis_screen> {
                 controller: nameC,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 3, color: Colors.redAccent),
+                      borderSide: BorderSide(
+                          width: 3, color: Color.fromARGB(255, 28, 173, 240)),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     fillColor: Colors.black,

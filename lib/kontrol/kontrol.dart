@@ -11,7 +11,7 @@ class Kontrol extends StatefulWidget {
 }
 
 class _KontrolState extends State<Kontrol> {
-  bool isLEDOn = false;
+  bool isRelay1On = false;
   bool isAutomaticModeOn = false;
 
   final databaseReference = FirebaseDatabase.instance.reference();
@@ -51,16 +51,13 @@ class _KontrolState extends State<Kontrol> {
     print('Current time: ${now.hour}:${now.minute}:${now.second}');
 
     // Check if it's time to turn on the LED
-    if ((now.hour == 12 ||
-            now.hour == 14 ||
-            now.hour == 15 ||
-            now.hour == 16) &&
-        now.minute == 0 &&
+    if ((now.hour == 08 || now.hour == 11 || now.hour == 15) &&
+        now.minute == 27 &&
         now.second == 0) {
-      print('Turning on the LED');
+      print('Turning on the Relay1');
       setState(() {
-        isLEDOn = true;
-        toggleLEDLocally(isLEDOn);
+        isRelay1On = true;
+        toggleLEDLocally(isRelay1On);
       });
 
       // Wait for 10 seconds
@@ -68,17 +65,17 @@ class _KontrolState extends State<Kontrol> {
 
       // Turn off the LED
       setState(() {
-        isLEDOn = false;
-        toggleLEDLocally(isLEDOn);
+        isRelay1On = false;
+        toggleLEDLocally(isRelay1On);
       });
-      print('LED turned off after  60 seconds');
+      print('Relay1 turned off after  60 seconds');
     }
   }
 
   void toggleLED() {
     setState(() {
-      isLEDOn = !isLEDOn;
-      toggleLEDLocally(isLEDOn);
+      isRelay1On = !isRelay1On;
+      toggleLEDLocally(isRelay1On);
     });
   }
 
@@ -89,20 +86,16 @@ class _KontrolState extends State<Kontrol> {
   }
 
   void toggleLEDLocally(bool value) {
-    databaseReference.child('control').update({'led': value}).then((_) {
-      print('LED status updated to $value');
+    databaseReference.child('kontrol').update({'Relay1': value}).then((_) {
+      print('Relay1 status updated to $value');
     }).catchError((error) {
-      print('Failed to update LED status: $error');
+      print('Failed to update Relay1 status: $error');
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Kontrol Sistem"),
-        backgroundColor: Color.fromARGB(255, 12, 221, 9),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +118,7 @@ class _KontrolState extends State<Kontrol> {
             ),
             SizedBox(height: 20.0),
             Text(
-              'Status: ${isLEDOn ? 'Aktif' : 'Nonaktif'}',
+              'Status: ${isRelay1On ? 'Aktif' : 'Nonaktif'}',
               style: TextStyle(
                 fontSize: 18.0,
               ),
@@ -133,7 +126,7 @@ class _KontrolState extends State<Kontrol> {
             SizedBox(height: 10.0),
             ElevatedButton(
               onPressed: toggleLED,
-              child: Text('${isLEDOn ? 'Matikan' : 'Hidupkan'}'),
+              child: Text('${isRelay1On ? 'Matikan' : 'Hidupkan'}'),
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
@@ -143,7 +136,7 @@ class _KontrolState extends State<Kontrol> {
             ),
             SizedBox(height: 20.0),
             Text(
-              'Info: Va;ve akan menyala setiap hari pukul 02:00 AM selama 60 detik ktika mode otomatis di nyalakan.',
+              'Info: Va;ve akan menyala setiap hari pukul 08:00, 11.00, 14.00 AM selama 60 detik ktika mode otomatis di nyalakan.',
               style: TextStyle(
                 fontSize: 16.0,
                 fontStyle: FontStyle.italic,

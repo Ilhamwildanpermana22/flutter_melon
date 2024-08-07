@@ -18,7 +18,7 @@ void main() async {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
+          return const MaterialApp(
             home: Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
@@ -32,7 +32,7 @@ void main() async {
               home: HomeScreen(),
             );
           } else {
-            return GetMaterialApp(
+            return const GetMaterialApp(
               home: MyApp(),
             );
           }
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
               Color.fromARGB(255, 23, 181, 23),
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Center(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 340,
                 ),
                 Image.asset(
