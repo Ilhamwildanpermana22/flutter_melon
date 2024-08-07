@@ -49,12 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(227, 3, 135, 31),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   CircleAvatar(
                       radius: 40,
                       backgroundImage: AssetImage("assets/melon.png")
@@ -98,9 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text(
-          'Welcome to Plant Control!',
+          'Smart Greenhouse!',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
